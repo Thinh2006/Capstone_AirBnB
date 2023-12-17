@@ -80,8 +80,8 @@ model phong {
   vitri     Int
   BinhLuan  BinhLuan[]
   DatPhong  DatPhong[]
-  ViTri     ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phong_ibfk_1")
-  NguoiDung NguoiDung  @relation(fields: [khach], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phong_ibfk_2")
+  ViTri     ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  NguoiDung NguoiDung  @relation(fields: [khach], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([khach], map: "khach")
   @@index([vitri], map: "vitri")
