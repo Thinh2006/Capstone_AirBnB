@@ -12,7 +12,7 @@ model BinhLuan {
   ma_phong           Int
   ma_nguoi_binh_luan Int?
   ngay_binh_luan     DateTime?  @db.DateTime(0)
-  noi_dung           String     @db.VarChar(100)
+  noi_dung           String?
   sao_binh_luan      Int
   phong              phong      @relation(fields: [ma_phong], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuan_ibfk_1")
   NguoiDung          NguoiDung? @relation(fields: [ma_nguoi_binh_luan], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuan_ibfk_2")
