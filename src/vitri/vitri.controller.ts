@@ -12,47 +12,38 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
-import { PhongService } from './phong.service';
+import { VitriService } from './vitri.service';
 import {
+  ApiTags,
   ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
   ApiQuery,
   ApiResponse,
-  ApiTags,
+  ApiBody,
+  ApiConsumes,
 } from '@nestjs/swagger';
-import { createPhongDTO } from './dto/create-phong.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/enum/roles.enum';
 import { Roles } from 'src/decorators/roles.decorator';
-import { updatePhongDTO } from './dto/update-phong.dto';
+import { ViTriDTO } from './dto/vitri.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@ApiTags('Phong')
-@Controller('phong-thue')
-export class PhongController {
-  constructor(private readonly phongService: PhongService) {}
-
+@ApiTags('Vi tri')
+@Controller('vi-tri')
+export class VitriController {
+  constructor(private readonly vitriService: VitriService) {}
   @Get()
   findAll(): Promise<any> {
-    return this.phongService.findAll();
+    return this.vitriService.findAll();
   }
+
   @Post()
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
-  create(@Body() createPhongDto: createPhongDTO, @Req() req): Promise<any> {
-    return this.phongService.createPhong(createPhongDto, req.user.data.id);
-  }
-
-  @Get('lay-phong-theo-vi-tri')
-  async getPhongWithViTri(@Query('maViTri') vitriId: number) {
-    const phongWithViTri = await this.phongService.getPhongWithViTriById(
-      Number(vitriId),
-    );
-    return phongWithViTri;
+  create(@Body() vitriDTO: ViTriDTO, @Req() req): Promise<any> {
+    return this.vitriService.create(vitriDTO, req.user.data.id);
   }
 
   @Get('phan-trang-tim-kiem')
@@ -76,7 +67,7 @@ export class PhongController {
     @Query('pageSize') pageSize: string | null,
     @Query('keyword') keyword: string | null,
   ): Promise<any> {
-    const paginatedPhongs = await this.phongService.getPhongWithPagingAndSearch(
+    const paginatedPhongs = await this.vitriService.getAllAndPaging(
       pageIndex ? parseInt(pageIndex, 10) : null,
       pageSize ? parseInt(pageSize, 10) : null,
       keyword,
@@ -86,7 +77,7 @@ export class PhongController {
 
   @Get(':id')
   async getPhongById(@Param('id') id: number): Promise<any> {
-    return await this.phongService.getPhongById(Number(id));
+    return await this.vitriService.getById(Number(id));
   }
 
   @Put(':id')
@@ -95,13 +86,13 @@ export class PhongController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   async EditPhongById(
-    @Body() updateDto: updatePhongDTO,
-    @Param('id') phongId: number,
+    @Body() vitriDTO: ViTriDTO,
+    @Param('id') vitriId: number,
     @Req() req,
   ): Promise<any> {
-    return await this.phongService.editPhongById(
-      Number(phongId),
-      updateDto,
+    return await this.vitriService.editById(
+      vitriDTO,
+      Number(vitriId),
       Number(req.user.data.id),
     );
   }
@@ -111,15 +102,14 @@ export class PhongController {
   @Roles(Role.ADMIN)
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
-  @ApiResponse({ status: 200, description: 'Xoá phòng thành công' })
-  async DeletePhong(@Param('id') phongId: number, @Req() req): Promise<any> {
-    return await this.phongService.deletePhongById(
-      Number(phongId),
+  async DeletePhong(@Param('id') vitriId: number, @Req() req): Promise<any> {
+    return await this.vitriService.deleteById(
+      Number(vitriId),
       Number(req.user.data.id),
     );
   }
 
-  @Post('upload-hinh-phong')
+  @Post('upload-hinh-vi-tri')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -135,8 +125,8 @@ export class PhongController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadAvatar(
     @UploadedFile() file,
-    @Query('phongId') phongId: number,
+    @Query('vitriId') vitriId: number,
   ): Promise<any> {
-    return await this.phongService.uploadPhongImage(file, Number(phongId));
+    return await this.vitriService.upload(file, Number(vitriId));
   }
 }

@@ -47,15 +47,18 @@ model NguoiDung {
   BinhLuan  BinhLuan[]
   DatPhong  DatPhong[]
   phong     phong[]
+  vitri     ViTri[]
 }
 
 model ViTri {
-  id         Int     @id @default(autoincrement())
-  ten_vi_tri String? @db.VarChar(50)
-  tinh_thanh String? @db.VarChar(50)
-  quoc_gia   String? @db.VarChar(50)
-  hinh_anh   String  @db.VarChar(100)
-  phong      phong[]
+  id           Int       @id @default(autoincrement())
+  ten_vi_tri   String?   @db.VarChar(50)
+  tinh_thanh   String?   @db.VarChar(50)
+  quoc_gia     String?   @db.VarChar(50)
+  hinh_anh     String    @db.VarChar(100)
+  phong        phong[]
+  nguoi_tao_id Int
+  NguoiDung    NguoiDung @relation(fields: [nguoi_tao_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model phong {
