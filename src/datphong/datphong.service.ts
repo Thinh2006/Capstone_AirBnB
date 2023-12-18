@@ -66,7 +66,7 @@ export class DatphongService {
   }
 
   async removeDatPhong(id: number): Promise<string> {
-    const checkID = await this.prisma.datPhong.findFirst({
+    const checkID = await this.prisma.datPhong.delete({
       where: {
         id: +id,
       },

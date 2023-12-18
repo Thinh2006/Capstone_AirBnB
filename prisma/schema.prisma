@@ -39,7 +39,7 @@ model NguoiDung {
   id        Int        @id @default(autoincrement())
   name      String     @db.VarChar(50)
   email     String     @db.VarChar(50)
-  pass_word String     @db.VarChar(50)
+  pass_word String     @db.VarChar(1000)
   phone     String     @db.VarChar(20)
   birth_day String     @db.VarChar(20)
   gender    String     @db.VarChar(10)

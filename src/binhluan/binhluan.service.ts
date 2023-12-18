@@ -51,7 +51,7 @@ export class BinhluanService {
   }
 
   async removeComment(id: number): Promise<string> {
-    const checkID = await this.prisma.binhLuan.findFirst({
+    const checkID = await this.prisma.binhLuan.delete({
       where: {
         id: +id,
       },
