@@ -35,11 +35,12 @@ export class AuthService {
           role: Role.USER,
         },
       });
+
       return newData;
     }
   }
 
-  async logIn(logInDto: LogInDto): Promise<string> {
+  async logIn(logInDto: LogInDto): Promise<any> {
     const data = await this.prisma.nguoiDung.findFirst({
       where: {
         email: logInDto.email,
@@ -56,7 +57,7 @@ export class AuthService {
             secret: this.configServive.get('SECRET_KEY'),
           },
         );
-        return token;
+        return { token, data };
       } else {
         return 'Password không đúng';
       }

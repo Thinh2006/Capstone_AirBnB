@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { BinhluanModule } from './binhluan/binhluan.module';
 import { DatphongModule } from './datphong/datphong.module';
 import { NguoidungModule } from './nguoidung/nguoidung.module';
+import { PhongModule } from './phong/phong.module';
+import { VitriModule } from './vitri/vitri.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { NguoidungModule } from './nguoidung/nguoidung.module';
     BinhluanModule,
     DatphongModule,
     NguoidungModule,
+    PhongModule,
+    VitriModule,
   ],
   controllers: [AppController],
   providers: [AppService],

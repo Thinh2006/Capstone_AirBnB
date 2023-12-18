@@ -12,7 +12,7 @@ model BinhLuan {
   ma_phong           Int
   ma_nguoi_binh_luan Int?
   ngay_binh_luan     DateTime?  @db.DateTime(0)
-  noi_dung           String     @db.VarChar(100)
+  noi_dung           String?
   sao_binh_luan      Int
   phong              phong      @relation(fields: [ma_phong], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuan_ibfk_1")
   NguoiDung          NguoiDung? @relation(fields: [ma_nguoi_binh_luan], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuan_ibfk_2")
@@ -39,7 +39,7 @@ model NguoiDung {
   id        Int        @id @default(autoincrement())
   name      String     @db.VarChar(50)
   email     String     @db.VarChar(50)
-  pass_word String     @db.VarChar(1000)
+  pass_word String
   phone     String     @db.VarChar(20)
   birth_day String     @db.VarChar(20)
   gender    String     @db.VarChar(10)
@@ -47,41 +47,45 @@ model NguoiDung {
   BinhLuan  BinhLuan[]
   DatPhong  DatPhong[]
   phong     phong[]
+  vitri     ViTri[]
 }
 
 model ViTri {
-  id         Int     @id @default(autoincrement())
-  ten_vi_tri String? @db.VarChar(50)
-  tinh_thanh String? @db.VarChar(50)
-  quoc_gia   String? @db.VarChar(50)
-  hinh_anh   String  @db.VarChar(100)
-  phong      phong[]
+  id           Int       @id @default(autoincrement())
+  ten_vi_tri   String?   @db.VarChar(50)
+  tinh_thanh   String?   @db.VarChar(50)
+  quoc_gia     String?   @db.VarChar(50)
+  hinh_anh     String    @db.VarChar(100)
+  phong        phong[]
+  nguoi_tao_id Int
+  NguoiDung    NguoiDung @relation(fields: [nguoi_tao_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model phong {
-  id        Int        @id @default(autoincrement())
-  ten_phong String     @db.VarChar(50)
-  khach     Int
-  phong_ngu Int
-  giuong    Int
-  phong_tam Int
-  mo_ta     String     @db.VarChar(150)
-  gia_tien  Int
-  may_giat  Boolean
-  ban_la    Boolean
-  tivi      Boolean
-  dieu_hoa  Boolean
-  wifi      Boolean
-  bep       Boolean
-  do_xe     Boolean
-  ho_boi    Boolean
-  ban_ui    Boolean
-  hinh_anh  String     @db.VarChar(100)
-  vitri     Int
-  BinhLuan  BinhLuan[]
-  DatPhong  DatPhong[]
-  ViTri     ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phong_ibfk_1")
-  NguoiDung NguoiDung  @relation(fields: [khach], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phong_ibfk_2")
+  id            Int        @id @default(autoincrement())
+  ten_phong     String     @db.VarChar(50)
+  khach         Int
+  phong_ngu     Int
+  giuong        Int
+  phong_tam     Int
+  mo_ta         String     @db.VarChar(150)
+  gia_tien      Int
+  may_giat      Boolean
+  ban_la        Boolean
+  tivi          Boolean
+  dieu_hoa      Boolean
+  wifi          Boolean
+  bep           Boolean
+  do_xe         Boolean
+  ho_boi        Boolean
+  ban_ui        Boolean
+  hinh_anh      String     @default("default") @db.VarChar(100)
+  vitri         Int
+  nguoi_dung_id Int
+  BinhLuan      BinhLuan[]
+  DatPhong      DatPhong[]
+  ViTri         ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  NguoiDung     NguoiDung  @relation(fields: [nguoi_dung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([khach], map: "khach")
   @@index([vitri], map: "vitri")
