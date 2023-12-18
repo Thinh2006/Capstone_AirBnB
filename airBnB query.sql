@@ -13,15 +13,15 @@ VALUES
   ('Location3', 'City3', 'Country3', 'location3.jpg'),
   ('Location4', 'City4', 'Country4', 'location4.jpg'),
   ('Location5', 'City5', 'Country5', 'location5.jpg');
-
-INSERT INTO phong (ten_phong, khach, phong_ngu, giuong, phong_tam, mo_ta, gia_tien, may_giat, ban_la, tivi, dieu_hoa, wifi, bep, do_xe, ho_boi, ban_ui, hinh_anh, vitri)
-VALUES
-  ('Room1', 2, 1, 1, 1, 'Description1', 100, true, false, true, false, true, false, true, true, false, 'room1.jpg', 1),
-  ('Room2', 3, 2, 2, 1, 'Description2', 150, true, true, true, true, true, true, false, false, true, 'room2.jpg', 2),
-  ('Room3', 2, 1, 1, 1, 'Description3', 120, false, true, false, true, false, true, false, true, false, 'room3.jpg', 3),
-  ('Room4', 4, 3, 3, 2, 'Description4', 200, true, false, true, true, false, true, true, false, true, 'room4.jpg', 4),
-  ('Room5', 2, 1, 1, 1, 'Description5', 130, true, false, true, false, true, true, false, true, false, 'room5.jpg', 5);
   
+INSERT INTO phong (ten_phong, khach, phong_ngu, giuong, phong_tam, mo_ta, gia_tien, may_giat, ban_la, tivi, dieu_hoa, wifi, bep, do_xe, ho_boi, ban_ui, hinh_anh, vitri, nguoi_dung_id)
+VALUES
+('Room A', 2, 1, 1, 1, 'Cozy room with a view', 100, true, true, true, true, true, true, true, false, false, 'path/to/image1.jpg', 1, 1),
+('Room B', 3, 2, 2, 2, 'Spacious family room', 150, true, true, true, true, true, true, true, true, false, 'path/to/image2.jpg', 2, 2),
+('Room C', 1, 1, 1, 1, 'Single room for solo travelers', 80, false, true, true, false, true, false, false, false, false, 'path/to/image3.jpg', 3, 3),
+('Room D', 4, 2, 2, 1, 'Suitable for groups', 200, true, true, true, true, true, true, true, false, false, 'path/to/image4.jpg', 1, 4),
+('Room E', 2, 1, 1, 1, 'Budget-friendly option', 70, false, false, true, false, true, false, false, false, false, 'path/to/image5.jpg', 2, 5);
+
   INSERT INTO BinhLuan (ma_phong, ma_nguoi_binh_luan, ngay_binh_luan, noi_dung, sao_binh_luan)
 VALUES
   (1, 1, '2023-01-10 12:00:00', 'Comment1 for Room1', 5),

@@ -39,7 +39,7 @@ model NguoiDung {
   id        Int        @id @default(autoincrement())
   name      String     @db.VarChar(50)
   email     String     @db.VarChar(50)
-  pass_word String     @db.VarChar(50)
+  pass_word String
   phone     String     @db.VarChar(20)
   birth_day String     @db.VarChar(20)
   gender    String     @db.VarChar(10)
@@ -59,29 +59,30 @@ model ViTri {
 }
 
 model phong {
-  id        Int        @id @default(autoincrement())
-  ten_phong String     @db.VarChar(50)
-  khach     Int
-  phong_ngu Int
-  giuong    Int
-  phong_tam Int
-  mo_ta     String     @db.VarChar(150)
-  gia_tien  Int
-  may_giat  Boolean
-  ban_la    Boolean
-  tivi      Boolean
-  dieu_hoa  Boolean
-  wifi      Boolean
-  bep       Boolean
-  do_xe     Boolean
-  ho_boi    Boolean
-  ban_ui    Boolean
-  hinh_anh  String     @db.VarChar(100)
-  vitri     Int
-  BinhLuan  BinhLuan[]
-  DatPhong  DatPhong[]
-  ViTri     ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  NguoiDung NguoiDung  @relation(fields: [khach], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id            Int        @id @default(autoincrement())
+  ten_phong     String     @db.VarChar(50)
+  khach         Int
+  phong_ngu     Int
+  giuong        Int
+  phong_tam     Int
+  mo_ta         String     @db.VarChar(150)
+  gia_tien      Int
+  may_giat      Boolean
+  ban_la        Boolean
+  tivi          Boolean
+  dieu_hoa      Boolean
+  wifi          Boolean
+  bep           Boolean
+  do_xe         Boolean
+  ho_boi        Boolean
+  ban_ui        Boolean
+  hinh_anh      String     @default("default") @db.VarChar(100)
+  vitri         Int
+  nguoi_dung_id Int
+  BinhLuan      BinhLuan[]
+  DatPhong      DatPhong[]
+  ViTri         ViTri      @relation(fields: [vitri], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  NguoiDung     NguoiDung  @relation(fields: [nguoi_dung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([khach], map: "khach")
   @@index([vitri], map: "vitri")
